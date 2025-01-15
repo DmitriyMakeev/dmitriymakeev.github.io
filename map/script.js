@@ -1,32 +1,26 @@
 'use strict';
 
-class Panorama {
-    constructor(mapCanvas, options) {
-        this.canvas = mapCanvas;
-        this.panorama = null;
-        this.raf = null;
-        this.init(options);
-    }
+new google.maps.StreetViewPanorama(document.getElementById('map-canvas'), {
+    position: {lat: 43.7687996, lng: 11.2532749},
+    pov: {heading: 0, pitch: 0},
+    zoom: 1,
+    disableDefaultUI: true,
+    scrollwheel: true,
+    showRoadLabels: false,
+    // motionTracking: false,
+    // motionTrackingControl: false,
+});
 
-    init(options) {
-        this.panorama = new google.maps.StreetViewPanorama(this.canvas, options);
-        return this.panorama;
-    }
-    
-    static create(mapCanvas, options) {
-        return new Panorama(mapCanvas, options);
-    }
-}
-
-function initMap() {
-    let mapCanvasEl = document.getElementById('map-canvas');
-    let map = Panorama.create(mapCanvasEl, {
-        position: {lat: 43.7710239, lng: 11.2522416},
-        zoom: 1,
-        scrollwheel: false,
-        pov: {heading: -20, pitch: -10},
-				disableDefaultUI: true
-    });
-}
-
-initMap();
+const observer = new MutationObserver(mutations => {
+  mutations.forEach(({ addedNodes }) => {
+      addedNodes.forEach(node => {
+        if (node.innerText && node.innerText.indexOf('For development purposes only') >= 0) node.style.display = 'none';
+        if (typeof node.querySelector === 'function' && node.querySelector('.dismissButton')) node.style.display = 'none';
+      });
+  })
+});
+observer.observe(document.querySelector('.container'), {
+    childList: true,
+    subtree: true,
+    attributes: true,
+});

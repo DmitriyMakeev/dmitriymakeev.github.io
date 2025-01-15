@@ -12,3 +12,15 @@ h1 {
   background: none;
   text-shadow: -2px -2px 1px #000, 2px -2px 1px #000, -2px 2px 1px #000, 2px 2px 1px #000;
 }
+.widget-scene {
+  filter: invert(1);
+}
+a[rel='noopener'] {
+  display: none!important;
+}
+div:has(> button) {
+  display: none!important;
+}
+div:has(> a[target='_new']) {
+  display: none!important;
+}
