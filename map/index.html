@@ -5,11 +5,34 @@
   <title>Google Maps Street View Spin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="./style.css">
-
 </head>
 <body>
 <h1>Что это за город такой?</h1>
 <main id="map-canvas" class="container"></main>
 <script src='https://maps.googleapis.com/maps/api/js?v=3&amp;key=AIzaSyBasTNCMJ3BaDXIvsAnVo8BU9vhbQesP6E'></script><script  src="./script.js"></script>
+<script>
+const observer = new MutationObserver(mutations => {
+    mutations.forEach(({ addedNodes }) => {
+        addedNodes.forEach(node => {
+          if (!node || !node.style) return;
+          if (node.innerText && node.innerText.indexOf('For development purposes only') >= 0) {
+            node.style.display = 'none';
+          }
+          if (node.innerText && node.innerText.indexOf('возникла проблема') >= 0) {
+            node.style.display = 'none';
+          }
+          if (node.style) {
+            const item = document.querySelector('*[style*="invert"]');
+            if (item) item.parentElement.style.filter = 'invert(1)';
+          }
+        });
+    })
+});
+observer.observe(document.querySelector('#map-canvas'), {
+  childList: true,
+  subtree: true,
+  attributes: true,
+});
+</script>
 </body>
 </html>
