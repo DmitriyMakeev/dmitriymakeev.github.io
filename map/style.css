@@ -1,0 +1,14 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+}
+h1 {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10000;
+  user-select: none;
+  color: white;
+  background: none;
+  text-shadow: -2px -2px 1px #000, 2px -2px 1px #000, -2px 2px 1px #000, 2px 2px 1px #000;
+}
